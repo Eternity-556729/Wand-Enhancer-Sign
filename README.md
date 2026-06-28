@@ -5,6 +5,7 @@
 # WandEnhancer
 
 [![GitLab Mirror](https://img.shields.io/badge/GitLab-mirror-fc6d26?logo=gitlab)](https://gitlab.com/kitbyte/wand-enhancer)
+[![SignPath Code Signing](https://img.shields.io/badge/Code%20Signing-SignPath-blue?logo=signpath)](https://signpath.org/)
 
 </div>
 
@@ -153,6 +154,8 @@ If you find this project useful, you can support its development using any of th
 
 
 ---
+
+Free code signing provided by [SignPath](https://signpath.org/).
 
 > **Legal Disclaimer:**
 > This project is a third-party enhancement tool intended solely for educational, research, and local interoperability purposes. It does not distribute any proprietary code or bypass server-side validations. All modifications are performed locally to customize the user's interface.
