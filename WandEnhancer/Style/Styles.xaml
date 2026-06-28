@@ -42,8 +42,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource MutedForeground}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Margin" Value="0 2 0 2"/>
-                <Setter Property="Background" Value="{DynamicResource Primary}"/>
+                <Setter Property="Background" Value="{DynamicResource PrimaryHover}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -74,8 +73,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContextMenu}">
-                    <Border x:Name="Content" CornerRadius="5" Margin="5" 
-                            Background="{StaticResource Background}" 
+                    <Border x:Name="Content" CornerRadius="5" Margin="5"
+                            Background="{DynamicResource Background}"
                             BorderThickness="1"
                             BorderBrush="{DynamicResource Border}"
                             Padding="4">
@@ -164,10 +163,10 @@
                 <ControlTemplate TargetType="{x:Type CheckBox}">
                     <Border x:Name="Border" Height="17" Width="17"
                             CornerRadius="3"
-                            Background="{DynamicResource Foreground}" BorderBrush="{DynamicResource Border}"
+                            Background="{DynamicResource Ring}" BorderBrush="{DynamicResource Border}"
                             BorderThickness="0">
                         <TextBlock x:Name="Text" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Foreground="{DynamicResource PrimaryForeground}"></TextBlock>
+                                   FontSize="11" Foreground="#FFFFFF"></TextBlock>
                     </Border>                   
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="False">
@@ -194,7 +193,7 @@
     <Style TargetType="TextBox" x:Key="TitledTextBox">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Height" Value="30" />
-        <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
         <Setter Property="FontSize" Value="13" />
         <Setter Property="CaretBrush" Value="{DynamicResource MutedForeground}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource MutedForeground}" />
@@ -202,7 +201,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border BorderBrush="{StaticResource Border}" Cursor="IBeam"
+                    <Border BorderBrush="{DynamicResource Border}" Cursor="IBeam"
                             BorderThickness="1" CornerRadius="3">
                         <Grid>
                             <Grid.ColumnDefinitions>

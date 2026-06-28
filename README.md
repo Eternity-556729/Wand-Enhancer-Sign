@@ -4,12 +4,14 @@
 
 # WandEnhancer
 
-[![GitLab Mirror](https://img.shields.io/badge/GitLab-mirror-fc6d26?logo=gitlab)](https://gitlab.com/kitbyte/wand-enhancer)
+[![Original project](https://img.shields.io/badge/Original-k1tbyte%2FWand--Enhancer-blue?logo=github)](https://github.com/k1tbyte/Wand-Enhancer)
 [![SignPath Code Signing](https://img.shields.io/badge/Code%20Signing-SignPath-blue?logo=signpath)](https://signpath.org/)
 
 </div>
 
 <h4>An open-source interoperability tool designed to extend local client-side configurations and improve the UX of the Wand application.</h4>
+
+> This project is a fork of [k1tbyte/Wand-Enhancer](https://github.com/k1tbyte/Wand-Enhancer), the original project created by [k1tbyte](https://github.com/k1tbyte). It is maintained here at [Hachig0r0/Wand-Enhancer-Sign](https://github.com/Hachig0r0/Wand-Enhancer-Sign) under the Apache-2.0 license.
 
 **🚨 IMPORTANT NOTICE: BEWARE OF SCAMMERS AND FAKE TUTORIALS 🚨**
 The **ONLY** official place to download the prebuilt `WandEnhancer.exe` is from the [Releases](../../releases) tab of this exact GitHub repository. 
@@ -17,7 +19,7 @@ There are NO official YouTube tutorials or guides. Scammers frequently create fa
 
 ## 👾 Is it safe to use?
 
-Yes. This project is entirely open-source, allowing anyone to audit the code. It operates strictly locally, does not require internet access, and makes zero network requests. It simply adjusts local client settings to enhance your user experience.
+Yes. This project is entirely open-source, allowing anyone to audit the code. The patching runs locally on your machine and simply adjusts local client settings to enhance your user experience. The only network request is the update check against this repository's GitHub releases, which the built-in updater uses to offer new versions.
 
 ## 💫 What features are improved?
 
@@ -112,16 +114,14 @@ The build script installs the web panel dependencies, builds the frontend, compi
 
 ## ❓ Q&A
 
-- **Why is there no `.exe` in GitHub Releases?**
-  - Official releases are notes-only on purpose. The project no longer distributes prebuilt executables because unsigned or self-built patching tools are repeatedly reuploaded, mislabeled, and flagged by third-party scanners. Build the executable from your own fork using GitHub Actions instead.
 - **Where do I download the executable?**
-  - From your own fork's **Actions** artifact after running the **Build executable** workflow. Do not download `.exe` files from YouTube descriptions, random mirrors, Discord attachments, or issue comments.
-- **Why does Windows Defender or SmartScreen warn about my build?**
-  - The GitHub Actions artifact is currently unsigned, which makes Windows SmartScreen throw a tantrum. **Roadmap update:** We are planning to integrate **SignPath** into our workflow to automatically sign the `.exe` and permanently get rid of these annoying Windows warnings. In the meantime, you can safely review the source, verify the workflow logs, and run the binary you built yourself.
+  - From the **[Releases](../../releases)** tab of this repository. The built-in updater can also fetch and install new versions for you. Do not download `.exe` files from YouTube descriptions, random mirrors, Discord attachments, or issue comments.
+- **Why does Windows Defender or SmartScreen warn about it?**
+  - The executable can be flagged because it modifies a local Electron app, which some scanners treat as suspicious, and unsigned builds always trigger SmartScreen. You can review the full source, build it yourself, or click **"More info"** then **"Run anyway"**. Code signing through **SignPath** is planned to remove these warnings.
 - **Can I use a binary built by someone else?**
-  - You can, but you should treat it as untrusted. This repository cannot verify or support third-party builds.
+  - You can, but you should treat it as untrusted. Only the official releases from this repository are supported.
 - **Does this send data anywhere?**
-  - The desktop patching work is local to your machine. The Remote Web Panel is served from your PC on your local network.
+  - The patching work is local to your machine. The only network request is the update check against this repository's GitHub releases. The Remote Web Panel is served from your PC on your local network.
 
 ---
 ## 🖼️ Screenshots
@@ -137,17 +137,6 @@ The build script installs the web panel dependencies, builds the frontend, compi
 This project is licensed under the Apache-2.0 - see the [LICENSE](LICENSE.md) file for details.
 
 ---
-## ❤️ Support
-
-If you find this project useful, you can support its development using any of the options below 🙌
-
-[![Patreon](https://img.shields.io/badge/Patreon-donate-f96854.svg?logo=patreon)](https://www.patreon.com/kitbyte/gift)
-[![USDT TRC20](https://img.shields.io/badge/USDT--TRC20-donate-26a17b.svg?logo=tether)](https://tronscan.org/#/address/TQdvau8pAy5Tg1Aa588tTcPCFgbcHtuoxc)
-[![BTC](https://img.shields.io/badge/BTC-donate-f7931a.svg?logo=bitcoin)](https://www.blockchain.com/explorer/addresses/btc/1EZKDcyU8REm9JW5xwXJqSpn5Xaq5yAWWX)
-[![ETH](https://img.shields.io/badge/ETH-donate-3c3c3d.svg?logo=ethereum)](https://etherscan.io/address/0xd904d9d0557f88bbb1c4ab3582b4ca0d8a730e8d)
-
-
----
 
 Free code signing provided by [SignPath](https://signpath.org/).
 
@@ -156,4 +145,4 @@ Free code signing provided by [SignPath](https://signpath.org/).
 
 ---
 
-[![Star History Chart](https://api.star-history.com/svg?repos=k1tbyte/Wand-Enhancer&type=Date)](https://www.star-history.com/#k1tbyte/Wand-Enhancer&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Hachig0r0/Wand-Enhancer-Sign&type=Date)](https://www.star-history.com/#Hachig0r0/Wand-Enhancer-Sign&Date)

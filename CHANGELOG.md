@@ -3,6 +3,28 @@
 This file is the source of truth for release notes.
 The newest entry must match the version in `WandEnhancer/Properties/AssemblyInfo.cs`.
 
+## [1.0.10.0] - 2026-06-28
+
+### Features
+
+- Re-added the built-in updater. The app can check GitHub for new releases, show the release notes and full changelog, and update itself.
+
+### Improvements
+
+- Fixed lag and high memory use in the log list by turning UI virtualization back on and using a lighter text element for each line.
+- Logging no longer blocks the patch thread, so patching stays responsive even with many log lines.
+- Reduced the window shadow cost so dragging the window is smoother.
+- The WeMod install is now located in the background instead of during startup, so the window opens faster.
+- Settings opens faster because language names are cached instead of reloaded from disk every time.
+- Update downloads now stream to disk instead of loading the whole file into memory.
+
+### Fixes
+
+- Closing WeMod before patching no longer adds a fixed delay when WeMod is not running, and process handles are now released properly.
+- A failed background task, such as an update check, no longer closes the whole app.
+- A UI error now shows a message and keeps the app open instead of crashing it.
+- Patch matching now stops after a timeout instead of pinning a CPU core on unsupported Wand versions.
+
 ## [1.0.9.1] - 2026-06-24
 
 ### Fixes

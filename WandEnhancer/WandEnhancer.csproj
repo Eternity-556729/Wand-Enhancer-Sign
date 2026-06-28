@@ -55,6 +55,7 @@
         <Reference Include="System.Data" />
         <Reference Include="System.Windows.Forms" />
         <Reference Include="System.Xml" />
+        <Reference Include="System.Net.Http" />
         <Reference Include="System.Xaml">
             <RequiredTargetFramework>4.0</RequiredTargetFramework>
         </Reference>
@@ -74,6 +75,7 @@
         <Compile Include="Core\EnhancerConfig.cs" />
         <Compile Include="Core\Services\LocalizationManager.cs" />
         <Compile Include="Core\Services\SettingsManager.cs" />
+        <Compile Include="Core\Services\ThemeManager.cs" />
         <Compile Include="Models\WeModConfig.cs" />
         <Compile Include="Models\PatchConfig.cs" />
         <Compile Include="Models\Signature.cs" />
@@ -83,6 +85,7 @@
         <Compile Include="ReactiveUICore\RelayCommand.cs" />
         <Compile Include="Utils\Common.cs" />
         <Compile Include="Utils\Extensions.cs" />
+        <Compile Include="Utils\Updater.cs" />
         <Compile Include="Utils\Win32\Shortcut.cs" />
         <Compile Include="View\Controls\InfoItem.xaml.cs">
           <DependentUpon>InfoItem.xaml</DependentUpon>
@@ -101,6 +104,9 @@
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Compile Include="View\Popups\UpdatePopup.xaml.cs">
+          <DependentUpon>UpdatePopup.xaml</DependentUpon>
+        </Compile>
         <Page Include="Locale\lang.en-US.xaml" />
         <Page Include="Locale\lang.zh-CN.xaml" />
         <Page Include="Locale\lang.de-DE.xaml" />
@@ -113,7 +119,8 @@
         <Page Include="Locale\lang.uk-UA.xaml" />
         <Page Include="Locale\lang.ja-JP.xaml" />
         <Page Include="Locale\lang.tr-TR.xaml" />
-        <Page Include="Style\ColorScheme.xaml" />
+        <Page Include="Style\Theme.Dark.xaml" />
+        <Page Include="Style\Theme.Light.xaml" />
         <Page Include="Style\Icons.xaml" />
         <Page Include="Style\Styles.xaml" />
         <Page Include="View\Controls\InfoItem.xaml" />
@@ -121,6 +128,7 @@
         <Page Include="View\MainWindow\MainWindow.xaml" />
         <Page Include="View\Popups\PatchVectorsPopup.xaml" />
         <Page Include="View\Popups\SettingsPopup.xaml" />
+        <Page Include="View\Popups\UpdatePopup.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">
@@ -197,4 +205,4 @@
         <Exec Command="&quot;$(ILRepackExe)&quot; /allowMultiple /copyattrs /out:&quot;$(OutputPath)$(AssemblyName).exe&quot; &quot;$(MainAssembly)&quot; $(DllList)" />
         <Delete Files="@(AssemblyList)" ContinueOnError="true" />
     </Target>
-</Project>
+</Project>  

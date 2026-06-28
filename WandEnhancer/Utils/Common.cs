@@ -10,28 +10,56 @@ namespace WandEnhancer.Utils
     {
         public static void TryKillProcess(string processName)
         {
-            Process[] processes = Process.GetProcessesByName(processName);
-            for (int i = 0; processes.Length > i || i < 5; i++)
+            const int maxAttempts = 5;
+
+            for (int attempt = 0; attempt < maxAttempts; attempt++)
             {
-                foreach (var process in processes)
+                var processes = Process.GetProcessesByName(processName);
+                try
                 {
-                    try
+                    // Nothing (left) to kill - we're done immediately.
+                    if (processes.Length == 0)
                     {
-                        process.Kill();
+                        return;
                     }
-                    catch
+
+                    foreach (var process in processes)
                     {
-                        // ignored
+                        try
+                        {
+                            process.Kill();
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
                     }
                 }
-                
-                processes = Process.GetProcessesByName(processName);
+                finally
+                {
+                    foreach (var process in processes)
+                    {
+                        process.Dispose();
+                    }
+                }
+
                 Thread.Sleep(250);
             }
-            
-            if (processes.Length > 0)
+
+            var remaining = Process.GetProcessesByName(processName);
+            try
             {
-                throw new Exception("Failed to kill WeMod");
+                if (remaining.Length > 0)
+                {
+                    throw new Exception("Failed to kill WeMod");
+                }
+            }
+            finally
+            {
+                foreach (var process in remaining)
+                {
+                    process.Dispose();
+                }
             }
         }
 

@@ -11,9 +11,13 @@ namespace WandEnhancer
         [STAThread]
         public static void Main(string[] args)
         {
+            // Give every Regex a default match timeout so a pathological pattern on an
+            // unsupported, multi-megabyte minified bundle fails fast instead of pinning a CPU core.
+            AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromSeconds(10));
+
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
             TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
-            
+
             List<LogEntry> logEntries = new List<LogEntry>();
             if (args.Length > 0)
             {
@@ -33,8 +37,9 @@ namespace WandEnhancer
         
         private static void OnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            MessageBox.Show(e.Exception.ToString());
-            Environment.Exit(1);
+            // Background tasks (update checks, fire-and-forget work) must never take the whole app
+            // down. Mark the exception observed so the runtime does not escalate it.
+            e.SetObserved();
         }
 
         private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)

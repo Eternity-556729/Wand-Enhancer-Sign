@@ -1,0 +1,27 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- GitHub dark palette -->
+    <Brush x:Key="Background">#0D1117</Brush>
+    <Brush x:Key="Foreground">#E6EDF3</Brush>
+    <Brush x:Key="Card">#161B22</Brush>
+    <Brush x:Key="CardForeground">#E6EDF3</Brush>
+    <Brush x:Key="Popover">#161B22</Brush>
+    <Brush x:Key="PopoverForeground">#E6EDF3</Brush>
+    <Brush x:Key="Primary">#238636</Brush>
+    <Brush x:Key="PrimaryForeground">#FFFFFF</Brush>
+    <Brush x:Key="PrimaryHover">#2EA043</Brush>
+    <Brush x:Key="Secondary">#21262D</Brush>
+    <Brush x:Key="SecondaryForeground">#E6EDF3</Brush>
+    <Brush x:Key="Muted">#21262D</Brush>
+    <Brush x:Key="MutedForeground">#8B949E</Brush>
+    <Brush x:Key="Accent">#30363D</Brush>
+    <Brush x:Key="AccentForeground">#E6EDF3</Brush>
+    <Brush x:Key="Destructive">#F85149</Brush>
+    <Brush x:Key="DestructiveForeground">#FFFFFF</Brush>
+    <Brush x:Key="Border">#30363D</Brush>
+    <Brush x:Key="Input">#30363D</Brush>
+    <Brush x:Key="Ring">#1F6FEB</Brush>
+    <Brush x:Key="Link">#2F81F7</Brush>
+    <Brush x:Key="Success">#3FB950</Brush>
+    <Brush x:Key="Warn">#D29922</Brush>
+</ResourceDictionary>

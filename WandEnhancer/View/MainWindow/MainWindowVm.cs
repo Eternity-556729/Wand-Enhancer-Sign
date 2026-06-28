@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,8 @@ namespace WandEnhancer.View.MainWindow
     {
         private readonly MainWindow _view;
         public ObservableCollection<LogEntry> LogList { get; set; } = new ObservableCollection<LogEntry>();
+        private static Updater _updater = new Updater();
+
         private WeModConfig _weModConfig;
 
         public WeModConfig WeModInfo
@@ -58,9 +61,18 @@ namespace WandEnhancer.View.MainWindow
             set => SetProperty(ref _alreadyPatched, value);
         }
 
+        private bool _isUpdateAvailable;
+
+        public bool IsUpdateAvailable
+        {
+            get => _isUpdateAvailable;
+            set => SetProperty(ref _isUpdateAvailable, value);
+        }
+
         public RelayCommand SetFolderPathCommand { get; }
         public RelayCommand ApplyPatchCommand { get; }
         public RelayCommand RestoreBackupCommand { get; }
+        public AsyncRelayCommand UpdateCommand { get; }
         public RelayCommand OpenSettingsCommand { get; }
         public RelayCommand CopyLogsCommand { get; }
         public RelayCommand ExportLogsCommand { get; }
@@ -159,10 +171,10 @@ namespace WandEnhancer.View.MainWindow
 
         private void Log(string message, ELogType logType)
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                message = $"[{logType.ToString().ToUpper()}] {message}";
+            message = $"[{logType.ToString().ToUpper()}] {message}";
 
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
                 var entry = new LogEntry
                 {
                     LogType = logType,
@@ -170,7 +182,37 @@ namespace WandEnhancer.View.MainWindow
                 };
                 LogList.Add(entry);
                 _view.LogList.ScrollIntoView(entry);
-            });
+            }));
+        }
+
+        private async Task OnUpdate(object param)
+        {
+            var updateInfo = await _updater.GetUpdateInfoAsync();
+            if (updateInfo == null)
+            {
+                Log("No update details are available right now.", ELogType.Warn);
+                return;
+            }
+
+            MainWindow.Instance.OpenPopup(new UpdatePopup(Constants.Version.ToString(), updateInfo.Version,
+                updateInfo.LatestNotes, () =>
+            {
+                MainWindow.Instance.ClosePopup();
+                Task.Run(async () =>
+                {
+                    try
+                    {
+                        await _updater.Update();
+                    }
+                    catch (Exception e)
+                    {
+                        Log($"Failed to update: {e.Message}", ELogType.Error);
+                        return;
+                    }
+
+                    Log("WandEnhancer updated successfully. Restarting...", ELogType.Success);
+                });
+            }, () => _updater.GetFullChangelogAsync()), Application.Current.FindResource("up_popup_title") as string);
         }
 
         private void OnOpenSettings(object param)
@@ -238,19 +280,34 @@ namespace WandEnhancer.View.MainWindow
 
         public MainWindowVm(MainWindow view)
         {
+            Task.Run(async () =>
+            {
+                var isUpdateAvailable = await _updater.CheckForUpdates();
+                Application.Current.Dispatcher.Invoke(() => IsUpdateAvailable = isUpdateAvailable);
+            });
             _view = view;
             SetFolderPathCommand = new RelayCommand(OnFolderPathSelection);
             ApplyPatchCommand = new RelayCommand(OnPatching);
             RestoreBackupCommand = new RelayCommand(OnBackupRestoring);
+            UpdateCommand = new AsyncRelayCommand(OnUpdate);
             OpenSettingsCommand = new RelayCommand(OnOpenSettings);
             CopyLogsCommand = new RelayCommand(OnCopyLogs);
             ExportLogsCommand = new RelayCommand(OnExportLogs);
 
-            WeModInfo = Extensions.FindWeMod();
-            if (WeModInfo == null)
+            // Locating the WeMod install can touch the disk and inspect running processes,
+            // so keep it off the UI thread and only marshal the result back.
+            Task.Run(() =>
             {
-                Log("WeMod directory not found.", ELogType.Error);
-            }
+                var info = Extensions.FindWeMod();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    WeModInfo = info;
+                    if (info == null)
+                    {
+                        Log("WeMod directory not found.", ELogType.Error);
+                    }
+                });
+            });
         }
     }
 }

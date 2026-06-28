@@ -19,8 +19,8 @@
             BorderBrush="{DynamicResource Border}"
             BorderThickness="1" Margin="10">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="15" Direction="-90"
-                              RenderingBias="Quality" ShadowDepth="2"/>
+            <DropShadowEffect BlurRadius="8" Direction="-90"
+                              RenderingBias="Performance" ShadowDepth="2"/>
         </Border.Effect>
                 
         <Grid>
@@ -28,8 +28,8 @@
                   MouseLeftButtonDown="OnDragMove" Height="55">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="25 0 0 0">
                     <Viewbox VerticalAlignment="Center" Width="32" Height="32">
-                        <Path 
-                            Fill="White" Data="{StaticResource Logo}"/>
+                        <Path
+                            Fill="{DynamicResource Foreground}" Data="{StaticResource Logo}"/>
                     </Viewbox>
                     <TextBlock Foreground="{DynamicResource Foreground}"
                                FontWeight="SemiBold" Opacity="0.9"
@@ -45,6 +45,12 @@
                         v 1.0.0
                     </TextBlock>
                     
+                    <Button Style="{StaticResource ColoredButton}"
+                            FontWeight="Medium" Padding="20 4" Margin="10 5 20 5"
+                            ToolTip="Click to update"
+                            Command="{Binding UpdateCommand}"
+                            Visibility="{Binding IsUpdateAvailable, Converter={StaticResource ToVisibilityConverter}}"
+                            Content="{DynamicResource mw_update_available}"/>
                 </StackPanel>
                                 
                 <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal">
@@ -106,38 +112,50 @@
                         <Grid>
                             <ListBox ItemsSource="{Binding LogList}" SelectionMode="Single"
                                  BorderBrush="Transparent" BorderThickness="0"
-                                 Background="Transparent" 
+                                 Background="Transparent"
                                  x:Name="LogList"
                                  Padding="6"
                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ScrollViewer.CanContentScroll="False">
+                                 ScrollViewer.CanContentScroll="True"
+                                 VirtualizingPanel.IsVirtualizing="True"
+                                 VirtualizingPanel.VirtualizationMode="Recycling"
+                                 VirtualizingPanel.ScrollUnit="Pixel">
                             <ListBox.ItemContainerStyle>
                                                     <Style TargetType="ListBoxItem">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         <Setter Property="Margin" Value="0 0 0 5"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
-                                    <Border x:Name="Card" HorizontalAlignment="Left"
-                                            Background="#08fc81"
+                                    <Border x:Name="Card" HorizontalAlignment="Stretch"
+                                            Background="{DynamicResource Card}"
                                             BorderBrush="{DynamicResource Border}"
-                                            Padding="5 3 5 3" CornerRadius="3">
-                                        <TextBox Text="{Binding Message}" 
-                                                 Cursor="IBeam" FontSize="13"
-                                                 Background="Transparent" TextWrapping="Wrap"
-                                                 BorderThickness="0"
-                                                 IsReadOnly="True"/>
+                                            BorderThickness="1" CornerRadius="4">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="Accent" Grid.Column="0"
+                                                    Background="{DynamicResource Success}"
+                                                    CornerRadius="4 0 0 4"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Message}"
+                                                       FontSize="12.5" FontFamily="Consolas"
+                                                       Foreground="{DynamicResource Foreground}"
+                                                       TextWrapping="Wrap" Margin="9 5 9 5"/>
+                                        </Grid>
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <DataTrigger Binding="{Binding LogType}" Value="Error">
-                                            <Setter  TargetName="Card" Property="Background" Value="#f04343"></Setter>
+                                            <Setter TargetName="Accent" Property="Background" Value="{DynamicResource Destructive}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding LogType}" Value="Info">
-                                            <Setter  TargetName="Card" Property="Background" Value="#FFF"></Setter>
+                                            <Setter TargetName="Accent" Property="Background" Value="{DynamicResource MutedForeground}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding LogType}" Value="Warn">
-                                            <Setter  TargetName="Card" Property="Background" Value="#facc15"></Setter>
+                                            <Setter TargetName="Accent" Property="Background" Value="{DynamicResource Warn}"/>
                                         </DataTrigger>
                                     </ControlTemplate.Triggers>
 
@@ -200,12 +218,12 @@
                                 MouseDown="OpenSourceClicked" 
                                 Background="Transparent">
                         <Viewbox VerticalAlignment="Center" Width="32" Height="32">
-                            <Path 
-                                Fill="White" Data="{StaticResource GitHub}"/>
+                            <Path
+                                Fill="{DynamicResource Foreground}" Data="{StaticResource GitHub}"/>
                         </Viewbox>
                         <Grid>
                             <TextBlock Margin="8 0 0 0"  FontSize="10" Foreground="{DynamicResource AccentForeground}">
-                                <Hyperlink Foreground="{DynamicResource AccentForeground}"><Run Text="{DynamicResource mw_source_code}"/></Hyperlink>
+                                <Hyperlink Foreground="{DynamicResource Link}"><Run Text="{DynamicResource mw_source_code}"/></Hyperlink>
                                 <LineBreak/>
                                 <Run Text="{DynamicResource mw_made_by}"/>
                                 

@@ -16,6 +16,19 @@ namespace WandEnhancer.View.Popups
         {
             InitializeComponent();
             LoadLanguages();
+            LoadTheme();
+        }
+
+        private void LoadTheme()
+        {
+            if (ThemeManager.CurrentTheme == AppTheme.Light)
+            {
+                LightThemeRadio.IsChecked = true;
+            }
+            else
+            {
+                DarkThemeRadio.IsChecked = true;
+            }
         }
 
         private void LoadLanguages()
@@ -49,13 +62,19 @@ namespace WandEnhancer.View.Popups
 
         private void OnSaveClick(object sender, RoutedEventArgs e)
         {
-            if (_selectedLanguage != null && 
-                (LocalizationManager.CurrentLanguage == null || 
+            if (_selectedLanguage != null &&
+                (LocalizationManager.CurrentLanguage == null ||
                  _selectedLanguage.Name != LocalizationManager.CurrentLanguage.Name))
             {
                 LocalizationManager.CurrentLanguage = _selectedLanguage;
             }
-            
+
+            var selectedTheme = LightThemeRadio.IsChecked == true ? AppTheme.Light : AppTheme.Dark;
+            if (selectedTheme != ThemeManager.CurrentTheme)
+            {
+                ThemeManager.CurrentTheme = selectedTheme;
+            }
+
             MainWindow.MainWindow.Instance.ClosePopup();
         }
 

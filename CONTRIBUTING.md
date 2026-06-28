@@ -31,7 +31,7 @@ The project consists of the following main components:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/k1tbyte/Wand-Enhancer.git
+   git clone https://github.com/Hachig0r0/Wand-Enhancer-Sign.git
    ```
 
 2. Open the solution `Wand-Enhancer.sln` in Visual Studio or JetBrains Rider.

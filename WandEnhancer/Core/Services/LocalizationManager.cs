@@ -28,6 +28,7 @@ namespace WandEnhancer.Core.Services
 
         private static CultureInfo _currentLanguage;
         private static ResourceDictionary _englishBaseDictionary;
+        private static readonly Dictionary<string, string> _displayNameCache = new Dictionary<string, string>();
 
         public static CultureInfo CurrentLanguage
         {
@@ -121,30 +122,41 @@ namespace WandEnhancer.Core.Services
             
             if (saveSettings)
             {
-                SettingsManager.SaveSettings(new AppSettings { Language = supportedCulture.Name });
+                var settings = SettingsManager.LoadSettings() ?? new AppSettings();
+                settings.Language = supportedCulture.Name;
+                SettingsManager.SaveSettings(settings);
             }
         }
 
         public static string GetLanguageDisplayName(CultureInfo culture)
         {
+            // Loading a full ResourceDictionary from disk per language is expensive;
+            // the display name never changes at runtime, so cache it for the session.
+            if (_displayNameCache.TryGetValue(culture.Name, out var cached))
+            {
+                return cached;
+            }
+
+            string displayName = culture.NativeName;
             try
             {
                 var dict = new ResourceDictionary
                 {
                     Source = new Uri($"Locale/lang.{culture.Name}.xaml", UriKind.Relative)
                 };
-                
+
                 if (dict.Contains("language_display_name"))
                 {
-                    return dict["language_display_name"] as string ?? culture.NativeName;
+                    displayName = dict["language_display_name"] as string ?? culture.NativeName;
                 }
             }
             catch
             {
                 // Fallback to native name if loading fails
             }
-            
-            return culture.NativeName;
+
+            _displayNameCache[culture.Name] = displayName;
+            return displayName;
         }
     }
 }

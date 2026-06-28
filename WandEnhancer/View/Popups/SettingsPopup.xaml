@@ -9,22 +9,58 @@
              Foreground="{DynamicResource MutedForeground}"
              FontWeight="Medium"
              FontSize="13">
-    <Grid MinWidth="250">
+    <UserControl.Resources>
+        <Style x:Key="SegmentToggle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Foreground" Value="{DynamicResource MutedForeground}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border x:Name="Bd" Background="Transparent"
+                                BorderBrush="Transparent" BorderThickness="1"
+                                CornerRadius="4" Padding="12 5">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Viewbox Width="14" Height="14" VerticalAlignment="Center">
+                                    <Path Data="{TemplateBinding Tag}" Fill="{TemplateBinding Foreground}" />
+                                </Viewbox>
+                                <ContentPresenter Margin="6 0 0 0" VerticalAlignment="Center"
+                                                  TextBlock.Foreground="{TemplateBinding Foreground}" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Accent}" />
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Border}" />
+                                <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid MinWidth="280">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
-        <Grid Grid.Row="0" Margin="0 0 0 15">
+
+        <Grid Grid.Row="0" Margin="0 0 0 14">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" 
+
+            <TextBlock Grid.Column="0" VerticalAlignment="Center"
                        Text="{DynamicResource settings_language}" />
-            <ComboBox Grid.Column="1" x:Name="LanguageComboBox" 
-                      Width="130"
+            <ComboBox Grid.Column="1" x:Name="LanguageComboBox"
+                      Width="150"
                       SelectionChanged="OnLanguageSelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -33,8 +69,33 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
-        
-        <Button Grid.Row="1" Padding="0 5 0 5" Margin="0 5 0 0"
+
+        <Grid Grid.Row="1" Margin="0 0 0 18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" VerticalAlignment="Center"
+                       Text="{DynamicResource settings_theme}" />
+            <Border Grid.Column="1" Background="{DynamicResource Card}"
+                    BorderBrush="{DynamicResource Border}" BorderThickness="1"
+                    CornerRadius="6" Padding="2">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="DarkThemeRadio" GroupName="Theme"
+                                 Style="{StaticResource SegmentToggle}"
+                                 Tag="{StaticResource MoonIcon}"
+                                 Content="{DynamicResource settings_theme_dark}" />
+                    <RadioButton x:Name="LightThemeRadio" GroupName="Theme"
+                                 Style="{StaticResource SegmentToggle}"
+                                 Tag="{StaticResource SunIcon}"
+                                 Content="{DynamicResource settings_theme_light}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Button Grid.Row="2" Padding="0 6" Margin="0 2 0 0"
+                Style="{StaticResource ColoredButton}"
                 Content="{DynamicResource settings_save}"
                 Click="OnSaveClick" />
     </Grid>

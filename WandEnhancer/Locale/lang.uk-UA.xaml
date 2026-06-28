@@ -8,12 +8,13 @@
 
     <!--#region MainWindow -->
     <s:String x:Key="mw_title">WandEnhancer</s:String>
+    <s:String x:Key="mw_update_available">Доступна нова версія</s:String>
     <s:String x:Key="mw_folder_path">Шлях до папки</s:String>
     <s:String x:Key="mw_folder_not_found">Папку не знайдено</s:String>
     <s:String x:Key="mw_patch">Застосувати</s:String>
     <s:String x:Key="mw_restore">Відновити</s:String>
     <s:String x:Key="mw_source_code">Вихідний код</s:String>
-    <s:String x:Key="mw_made_by">Зроблено з ❤️ by k1tbyte</s:String>
+    <s:String x:Key="mw_made_by">Зроблено з ❤️ by Hachig0r0</s:String>
     <s:String x:Key="mw_star_hint">Поставте зірку, якщо це було корисно ;)</s:String>
     <s:String x:Key="mw_copy_logs">Скопіювати логи до буфера обміну</s:String>
     <s:String x:Key="mw_export_logs">Експортувати логи у файл</s:String>
@@ -36,6 +37,20 @@
     <s:String x:Key="pv_no_custom_scripts">Скрипти не вибрано</s:String>
     <s:String x:Key="pv_start">Почати</s:String>
     <s:String x:Key="pv_popup_title">Що будемо покращувати?</s:String>
+    <!--#endregion -->
+
+    <!--#region UpdatePopup -->
+    <s:String x:Key="up_warning">Перед оновленням наполегливо рекомендується відкотити зміни, якщо вони були застосовані</s:String>
+    <s:String x:Key="up_current_version">Поточна версія</s:String>
+    <s:String x:Key="up_latest_version">Остання версія</s:String>
+    <s:String x:Key="up_release_notes">Нотатки до релізу</s:String>
+    <s:String x:Key="up_release_notes_unavailable">Нотатки до цього релізу недоступні.</s:String>
+    <s:String x:Key="up_show_more">Показати весь список змін</s:String>
+    <s:String x:Key="up_show_less">Показати лише актуальні зміни</s:String>
+    <s:String x:Key="up_loading_changelog">Завантаження списку змін...</s:String>
+    <s:String x:Key="up_changelog_failed">Не вдалося завантажити повний список змін. Натомість показано лише актуальні зміни.</s:String>
+    <s:String x:Key="up_update_now">Оновити зараз</s:String>
+    <s:String x:Key="up_popup_title">Доступне оновлення!</s:String>
     <!--#endregion -->
 
 </ResourceDictionary>

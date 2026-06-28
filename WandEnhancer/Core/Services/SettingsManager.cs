@@ -7,6 +7,7 @@ namespace WandEnhancer.Core.Services
     public class AppSettings
     {
         public string Language { get; set; }
+        public string Theme { get; set; }
     }
     
     public static class SettingsManager
