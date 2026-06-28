@@ -41,20 +41,13 @@ WandEnhancer includes a built-in **Remote Web Panel** allowing you to control ap
 
 ## 👀 How to use?
 
-This repository does not publish official compiled binaries. Build your own executable from your own fork using GitHub Actions.
+Getting started is simple. You no longer need to fork the repository to build your own binary.
 
-1. Sign in to GitHub and fork this repository.
-2. Open your fork, go to the **Actions** tab, and enable workflows if GitHub asks you to.
-3. Select the **Build executable** workflow.
-4. Click **Run workflow**, keep the default branch, and start the run.
-5. Wait for the workflow to finish, open the completed run, and download the artifact.
-6. Extract the artifact zip and run `WandEnhancer.exe` to apply local client modifications.
+1. Go to the **[Releases](../../releases)** page.
+2. Download the latest `WandEnhancer.exe` from the assets section.
+3. Extract the file if necessary, and run `WandEnhancer.exe` to apply your local client modifications.
 
-*Here how you do it:*
-
-  https://github.com/user-attachments/assets/b03eeed4-ceb8-45c0-b09c-2b64cf098c64
-
-
+> ⚠️ **Note on Windows SmartScreen:** Because the executable is newly compiled and unsigned, Windows Defender might show a warning. We are currently in the process of setting up **SignPath** to sign our binaries automatically. For now, you can safely click **"More info"** and then **"Run anyway"**.
 
 ## 🧩 Custom scripts
 
