@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - '*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Released version (ex: 1.0.0.0)'
+        required: true
+        default: '1.0.0.0'
 
 jobs:
   publish-release:
