@@ -122,7 +122,7 @@ The build script installs the web panel dependencies, builds the frontend, compi
 - **Where do I download the executable?**
   - From your own fork's **Actions** artifact after running the **Build executable** workflow. Do not download `.exe` files from YouTube descriptions, random mirrors, Discord attachments, or issue comments.
 - **Why does Windows Defender or SmartScreen warn about my build?**
-  - The GitHub Actions artifact is unsigned and uncommon, so Windows may warn even when the code was built directly from your fork. Review the source, verify the workflow logs, and only run binaries you built yourself.
+  - The GitHub Actions artifact is currently unsigned, which makes Windows SmartScreen throw a tantrum. **Roadmap update:** We are planning to integrate **SignPath** into our workflow to automatically sign the `.exe` and permanently get rid of these annoying Windows warnings. In the meantime, you can safely review the source, verify the workflow logs, and run the binary you built yourself.
 - **Can I use a binary built by someone else?**
   - You can, but you should treat it as untrusted. This repository cannot verify or support third-party builds.
 - **Does this send data anywhere?**
