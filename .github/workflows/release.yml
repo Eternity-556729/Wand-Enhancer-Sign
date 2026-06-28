@@ -19,7 +19,7 @@ jobs:
       contents: write
 
     env:
-      RELEASE_VERSION: ${{ github.ref_name }}
+      RELEASE_VERSION: ${{ github.event.inputs.version || github.ref_name }}
 
     steps:
       - uses: actions/checkout@v4
